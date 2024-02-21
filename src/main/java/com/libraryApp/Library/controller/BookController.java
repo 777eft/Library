@@ -36,14 +36,34 @@ public class BookController {
         return bookService.allBooks();
     }
 
-    @GetMapping("/search/{isbn}")
+    @GetMapping("/search-by-title/{title}")
+    public List<Book> searchByTitle(@PathVariable String title) {
+        return bookService.findBooksByTitle(title);
+    }
+
+    @GetMapping("/search-by-year/{releaseYear}")
+    public List<Book> searchByTitle(@PathVariable int releaseYear) {
+        return bookService.findBooksByReleaseYear(releaseYear);
+    }
+
+    @GetMapping("/search-by-author/{author}")
+    public List<Book> searchByAuthor(@PathVariable String author) {
+        return bookService.findBooksByAuthor(author);
+    }
+
+    @GetMapping("/search-by-genre/{genre}")
+    public List<Book> searchByGenre(@PathVariable String genre) {
+        return bookService.findBooksByGenre(genre);
+    }
+
+    @GetMapping("/search-by-isbn/{isbn}")
     public Book searchByIsbn(@PathVariable int isbn) {
-        return bookService.findSingleBook(isbn);
+        return bookService.findBookByIsbn(isbn);
     }
 
     @PutMapping({"/borrow-book/{isbn}", "/return-book/{isbn}"})
     public Book borrowOrReturnBook(@PathVariable int isbn) {
-        Book borrowedOrReturnedBook = bookService.findSingleBook(isbn);
+        Book borrowedOrReturnedBook = bookService.findBookByIsbn(isbn);
 
         if (borrowedOrReturnedBook == null) {
             return null;
@@ -53,6 +73,6 @@ public class BookController {
 
         bookService.saveBook(borrowedOrReturnedBook);
 
-        return bookService.findSingleBook(isbn);
+        return bookService.findBookByIsbn(isbn);
     }
 }

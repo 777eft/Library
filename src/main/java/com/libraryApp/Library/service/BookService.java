@@ -21,7 +21,7 @@ public class BookService {
     }
 
     public Book deleteBook(int isbn) {
-        Book bookToDelete = findSingleBook(isbn);
+        Book bookToDelete = findBookByIsbn(isbn);
         bookRepository.findBookByIsbn(isbn);
 
         return bookToDelete;
@@ -31,7 +31,23 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Book findSingleBook(int isbn) {
+    public List<Book> findBooksByTitle(String title) {
+        return bookRepository.findBooksByTitleIgnoreCase(title);
+    }
+
+    public List<Book> findBooksByReleaseYear(int releaseYear) {
+        return bookRepository.findBooksByReleaseYear(releaseYear);
+    }
+
+    public List<Book> findBooksByAuthor(String author) {
+        return bookRepository.findBooksByAuthorIgnoreCase(author);
+    }
+
+    public List<Book> findBooksByGenre(String genre) {
+        return bookRepository.findBooksByGenreIgnoreCase(genre);
+    }
+
+    public Book findBookByIsbn(int isbn) {
         return bookRepository.findBookByIsbn(isbn);
     }
 
