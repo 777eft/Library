@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookService {
@@ -15,16 +14,16 @@ public class BookService {
     private BookRepository bookRepository;
 
     public Book addBook(String title, int releaseYear, String author, String genre, int isbn) {
-
         Book book = new Book(title, releaseYear, author, genre, isbn);
         bookRepository.insert(book);
 
         return book;
     }
 
-    public Optional<Book> deleteBook(int isbn) {
-        Optional<Book> bookToDelete = findSingleBook(isbn);
-        bookRepository.deleteBookByIsbn(isbn);
+    public Book deleteBook(int isbn) {
+        Book bookToDelete = findSingleBook(isbn);
+        bookRepository.findBookByIsbn(isbn);
+
         return bookToDelete;
     }
 
@@ -32,8 +31,14 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Optional<Book> findSingleBook(int isbn) {
+    public Book findSingleBook(int isbn) {
         return bookRepository.findBookByIsbn(isbn);
+    }
+
+    public void saveBook(Book book) {
+        Book bookToReplace = bookRepository.findBookByIsbn(book.getIsbn());
+        bookRepository.delete(bookToReplace);
+        bookRepository.save(book);
     }
 
 }

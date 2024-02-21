@@ -3,12 +3,9 @@ package com.libraryApp.Library.controller;
 import com.libraryApp.Library.libraryitem.Book;
 import com.libraryApp.Library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/books")
@@ -18,7 +15,7 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/add-book")
-    public ResponseEntity<Book> createBook(@RequestBody Book bookToAdd) {
+    public Book createBook(@RequestBody Book bookToAdd) {
         Book book = bookService.addBook(
                 bookToAdd.getTitle(),
                 bookToAdd.getReleaseYear(),
@@ -26,23 +23,36 @@ public class BookController {
                 bookToAdd.getGenre(),
                 bookToAdd.getIsbn()
         );
-        return new ResponseEntity<>(book, HttpStatus.CREATED);
+        return book;
     }
 
     @DeleteMapping("/delete-book/{isbn}")
-    public ResponseEntity<Optional<Book>> deleteBook(@PathVariable int isbn) {
-        return new ResponseEntity<>(bookService.deleteBook(isbn), HttpStatus.OK);
+    public Book deleteBook(@PathVariable int isbn) {
+        return bookService.deleteBook(isbn);
     }
 
-
     @GetMapping("/all-books")
-    public ResponseEntity<List<Book>> getAllBooks() {
-        return new ResponseEntity<>(bookService.allBooks(), HttpStatus.OK);
+    public List<Book> getAllBooks() {
+        return bookService.allBooks();
     }
 
     @GetMapping("/search/{isbn}")
-    public ResponseEntity<Optional<Book>> searchByIsbn(@PathVariable int isbn) {
-        return new ResponseEntity<>(bookService.findSingleBook(isbn), HttpStatus.OK);
+    public Book searchByIsbn(@PathVariable int isbn) {
+        return bookService.findSingleBook(isbn);
     }
 
+    @PutMapping({"/borrow-book/{isbn}", "/return-book/{isbn}"})
+    public Book borrowOrReturnBook(@PathVariable int isbn) {
+        Book borrowedOrReturnedBook = bookService.findSingleBook(isbn);
+
+        if (borrowedOrReturnedBook == null) {
+            return null;
+        }
+
+        borrowedOrReturnedBook.setAvailableForBorrow(!borrowedOrReturnedBook.isAvailableForBorrow());
+
+        bookService.saveBook(borrowedOrReturnedBook);
+
+        return bookService.findSingleBook(isbn);
+    }
 }

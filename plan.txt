@@ -1,0 +1,28 @@
+Library Management Application
+
+- ✅ Allow librarians to add, edit, and delete items in the library catalog.
+    Each item should have attributes such as title, author, publication year, ISBN, etc.
+
+- ✅ Implement functionality for users to borrow and return items.
+    Users should be able to check out multiple items at once, set due dates, and renew items if necessary.
+
+- ✅ Provide users (both librarians and patrons) with the ability to search for items in the library catalog.
+    They should be able to search by title, author, genre, or ISBN.
+
+- Display the availability status of each item (e.g., available, checked out, on hold).
+    Users should be able to see whether an item is currently available for borrowing.
+
+- Allow users to reserve items that are currently checked out by others.
+    Once the item becomes available, the user should be notified, and they can pick up the item within a specified timeframe.
+
+Future:
+
+- User Authentication: Implement user authentication and authorisation.
+    Users should be able to register, login, and manage their accounts.
+    Different roles such as librarian and patron may have different access levels.
+
+- Reports and Analytics: Provide librarians with insights into library usage and trends.
+    Generate reports on items borrowed, popular categories, overdue items, etc.
+
+- Notifications: Implement a notification system to alert users about due dates, overdue items, reservation availability, etc.
+    Notifications can be sent via email or SMS.

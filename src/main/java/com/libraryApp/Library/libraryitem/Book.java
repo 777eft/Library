@@ -26,11 +26,16 @@ public class Book {
 
     private int isbn;
 
+    private boolean availableForBorrow;
+
     public Book(String title, int releaseYear, String author, String genre, int isbn) {
         this.title = title;
         this.releaseYear = releaseYear;
         this.author = author;
         this.genre = genre;
         this.isbn = isbn;
+        this.availableForBorrow = true;
     }
+
+
 }

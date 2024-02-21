@@ -8,7 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends MongoRepository<Book, Integer> {
-    Optional<Book> findBookByIsbn(int isbn);
+    Book findBookByIsbn(int isbn);
 
-    Optional<Book> deleteBookByIsbn(int isbn);
 }
