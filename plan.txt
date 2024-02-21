@@ -4,7 +4,9 @@ Library Management Application
     Each item should have attributes such as title, author, publication year, ISBN, etc.
 
 - ✅ Implement functionality for users to borrow and return items.
-    Users should be able to check out multiple items at once, set due dates, and renew items if necessary.
+    |
+    |
+    |___ Users should be able to check out multiple items at once, set due dates, and renew items if necessary <- TO DO
 
 - ✅ Provide users (both librarians and patrons) with the ability to search for items in the library catalog.
     They should be able to search by title, author, genre, or ISBN.
