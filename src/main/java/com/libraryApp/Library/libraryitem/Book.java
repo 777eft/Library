@@ -1,4 +1,4 @@
-package com.libraryApp.Library.book;
+package com.libraryApp.Library.libraryitem;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Book {
 
     @Id

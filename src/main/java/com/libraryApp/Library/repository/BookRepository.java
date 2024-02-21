@@ -1,6 +1,6 @@
-package com.libraryApp.Library.book;
+package com.libraryApp.Library.repository;
 
-import org.bson.types.ObjectId;
+import com.libraryApp.Library.libraryitem.Book;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,5 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends MongoRepository<Book, Integer> {
-    Optional<Book> findByIsbn(int isbn);
+    Optional<Book> findBookByIsbn(int isbn);
+
+    Optional<Book> deleteBookByIsbn(int isbn);
 }

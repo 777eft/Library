@@ -1,6 +1,7 @@
-package com.libraryApp.Library.book;
+package com.libraryApp.Library.service;
 
-import org.bson.types.ObjectId;
+import com.libraryApp.Library.libraryitem.Book;
+import com.libraryApp.Library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,18 @@ public class BookService {
         return book;
     }
 
+    public Optional<Book> deleteBook(int isbn) {
+        Optional<Book> bookToDelete = findSingleBook(isbn);
+        bookRepository.deleteBookByIsbn(isbn);
+        return bookToDelete;
+    }
+
     public List<Book> allBooks() {
         return bookRepository.findAll();
     }
 
     public Optional<Book> findSingleBook(int isbn) {
-        return bookRepository.findByIsbn(isbn);
+        return bookRepository.findBookByIsbn(isbn);
     }
 
 }

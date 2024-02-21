@@ -1,6 +1,7 @@
-package com.libraryApp.Library.book;
+package com.libraryApp.Library.controller;
 
-import org.bson.types.ObjectId;
+import com.libraryApp.Library.libraryitem.Book;
+import com.libraryApp.Library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +29,20 @@ public class BookController {
         return new ResponseEntity<>(book, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/delete-book/{isbn}")
+    public ResponseEntity<Optional<Book>> deleteBook(@PathVariable int isbn) {
+        return new ResponseEntity<>(bookService.deleteBook(isbn), HttpStatus.OK);
+    }
+
+
     @GetMapping("/all-books")
     public ResponseEntity<List<Book>> getAllBooks() {
-        return new ResponseEntity<List<Book>>(bookService.allBooks(), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.allBooks(), HttpStatus.OK);
     }
 
     @GetMapping("/search/{isbn}")
     public ResponseEntity<Optional<Book>> searchByIsbn(@PathVariable int isbn) {
-        return new ResponseEntity<Optional<Book>>(bookService.findSingleBook(isbn), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.findSingleBook(isbn), HttpStatus.OK);
     }
 
 }
